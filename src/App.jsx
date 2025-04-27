@@ -1,10 +1,24 @@
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
+import Navbar from './components/Navbar';
+
+
 const App = () => {
   return (
-    <div>
-      <h1 className='text-3xl font-bold underline text-red-500'>
-        Hello Booi!
-      </h1>
-    </div>
+    <main className='bg-slate-300/20'>
+      <Router>
+        <Navbar/>
+        <Routes>
+          <Route path='/' element={'Home'}>
+          </Route>
+          <Route path='/about' element={'About'}>
+          </Route>
+          <Route path='/projects' element={'Projects'}>
+          </Route>
+          <Route path='/contact' element={'Contact'}>
+          </Route>
+        </Routes>
+      </Router>
+    </main>
   )
 }
 
