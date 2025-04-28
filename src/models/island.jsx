@@ -13,7 +13,7 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { a } from '@react-spring/three';
 import islandScene from '../assets/3d/island.glb';
 
-const Island = ({isRotating, setIsRotating, ...props}) => {
+const Island = ({isRotating, setIsRotating, setCurrentStage, ...props}) => {
   const movingRate = 0.01 * Math.PI;
 
   const islandRef = useRef();
@@ -74,9 +74,6 @@ const Island = ({isRotating, setIsRotating, ...props}) => {
     }
   }
 
-  const setCurrentStage = () => {
-    console.error("setCurrentStage not implemented yet!");
-  }
 
   useFrame(()=> {
     if (!isRotating) {
@@ -85,6 +82,8 @@ const Island = ({isRotating, setIsRotating, ...props}) => {
       if (Math.abs(rotationSpeed.current) < 0.001) {
         rotationSpeed.current = 0;
       }
+
+      islandRef.current.rotation.y += rotationSpeed.current;
     }
     else {
       const rotation = islandRef.current.rotation.y;
