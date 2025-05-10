@@ -15,7 +15,11 @@ const Contact = () => {
     e.preventDefault();
     setisLoading(true);
 
-    emailjs.sendForm(
+    // console.log(`Sending email
+    //   service id: {${import.meta.env.VITE_APP_EMAILJS_SERVICE_ID}},
+    //   template id: {${import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID}}
+    //   public key: {${import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY}}`)
+    emailjs.send(
       import.meta.env.VITE_APP_EMAILJS_SERVICE_ID,
       import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID,
       {
@@ -30,9 +34,11 @@ const Contact = () => {
       setisLoading(false);
       // TODO: Show success message
       // TODO: Hide Alert
+      setform({name: '', email: '', message: ''});
     }).catch((error) => {
       console.log(error);
       setisLoading(false);
+      setform({name: '', email: '', message: ''});
       // TODO: Show error message
     })
   };
