@@ -32,16 +32,16 @@ const renderContent = {
     ),
     3: (
         <InfoBox
-            text="This is a mock up of MK World which bee will create from scratch with better models etc."
-            link="/about"
-            btnText="Learn More"
+            text="Here are some projects I've worked on over the years"
+            link="/projects"
+            btnText="Visit my portfolio"
             />
     ),
     4: (
         <InfoBox
-            text="This is a mock up of MK World which bee will create from scratch with better models etc."
-            link="/about"
-            btnText="Learn More"
+            text="Need to rent a bug (i am a honey bee)"
+            link="/contact"
+            btnText="Let's buzz!"
         />
     )
 }
