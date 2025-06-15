@@ -1,16 +1,20 @@
 import React, {useState, useRef, Suspense} from 'react';
 import emailjs from '@emailjs/browser';
 import { Canvas, extend } from '@react-three/fiber'
-
+import useAlert from "../hooks/useAlert";
 import Fox from "../models/Fox"
 import Loader from "../components/Loader"
+import Alert from '../components/Alert';
 
 const Contact = () => {
   const formRef = useRef(null);
 
   const [form, setform] = useState({name: '', email: '', message: ''});
   const [isLoading, setisLoading] = useState(false);
+  const [currentAnimation, SetCurrentAnimation] = useState('idle');
   
+  const { alert, showAlert, hideAlert } = useAlert();
+
   const handleChange = (e) => {
     setform({...form, [e.target.name]: e.target.value})
   };
@@ -18,7 +22,7 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setisLoading(true);
-
+    SetCurrentAnimation('hit');
     // console.log(`Sending email
     //   service id: {${import.meta.env.VITE_APP_EMAILJS_SERVICE_ID}},
     //   template id: {${import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID}}
@@ -36,21 +40,28 @@ const Contact = () => {
       import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY
     ).then(() => {
       setisLoading(false);
-      // TODO: Show success message
+      showAlert({text:"Message sent successfully!", type: "success"});
       // TODO: Hide Alert
-      setform({name: '', email: '', message: ''});
+      setTimeout(() => {
+        SetCurrentAnimation('idle');
+        setform({name: '', email: '', message: ''});
+        hideAlert();
+      }, [3000])
     }).catch((error) => {
       console.log(error);
       setisLoading(false);
+      SetCurrentAnimation('idle');
       setform({name: '', email: '', message: ''});
-      // TODO: Show error message
+      showAlert({text:"Send message was unsuccessful!"});
     })
   };
 
-  const handleFocus = () => {};
-  const handleBlur = () => {};
+  const handleFocus = () => SetCurrentAnimation('walk');
+  const handleBlur = () => {}; //SetCurrentAnimation('idle');
   return (
     <section className='relative flex lg:flex-row flex-col max-container' ref={formRef}>
+      {alert.show && <Alert {...alert} />}
+      <Alert text="test" />
       <div className='flex-1 min-w-[50%] flex flex-col'>
         <h1 className='head-text'>
           Get in Touch
@@ -119,7 +130,7 @@ const Contact = () => {
             </button>
           </form>
       </div>
-      <div className='lg: w-1/2 w-full lg:h-auto md:h-[550px] h-[350px]'>
+      <div className='lg:w-1/2 w-full lg:h-auto md:h-[550px] h-[350px]'>
         <Canvas
           camera = {{
             position: [0,0,5],
@@ -132,9 +143,10 @@ const Contact = () => {
             <ambientLight intensity={0.5}></ambientLight>
             <Suspense fallback={<Loader />}>
               <Fox
+                currentAnimation={currentAnimation}
                 position={[0.5, 0.35, 0]}
                 rotation={[12.6, -0.6, 0]}
-                scale={[0.6, 0.6, 0.6]}
+                scale={[0.5, 0.5, 0.5]}
               />
             </Suspense>
         </Canvas>
