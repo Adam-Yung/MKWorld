@@ -17,3 +17,6 @@ mkworld@0.0.0 /home/bee/Projects/MKWorld
 ├── react@19.1.0
 ├── tailwindcss@3.4.17
 └── vite@6.3.2
+
+Gist:
+https://gist.github.com/adrianhajdin/7bc0603ee0b1bd2872b80a62c24b5e5f
