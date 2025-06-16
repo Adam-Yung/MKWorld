@@ -57,13 +57,14 @@ const Island = ({isRotating, setIsRotating, setCurrentStage, ...props}) => {
   }
 
   const handleKeyDown = (e) => {
-    console.log(`keydown: ${e.key}`);
     if (e.key === 'ArrowLeft') {
       if (!isRotating) setIsRotating(true);
       islandRef.current.rotation.y += movingRate;
+      rotationSpeed.current = 0.0125;
     } else if (e.key === 'ArrowRight') {
       if (!isRotating) setIsRotating(true);
       islandRef.current.rotation.y -= movingRate;
+      rotationSpeed.current = -0.0125;
     }
   }
 
